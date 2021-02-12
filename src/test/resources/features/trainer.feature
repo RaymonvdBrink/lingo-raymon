@@ -29,17 +29,17 @@ Scenario Outline: Start a new round
 
   Scenario Outline: Guessing a word
     Given I am playing a round
-    And the word to guess is "word"
-    When I my "guess" is
-    Then the the feedback is "feedback"
+    And the word to guess is "<word>"
+    When I my "<guess>" is
+    Then the the feedback is "<feedback>"
 
     Examples:
-      | word | guess | feedback                                           |
-      |BAARD | BERGEN|INVALID, INVALID, INVALID, INVALID, INVALID, INVALID|
-      |BAARD | BONJE |CORRECT, ABSENT, ABSENT, ABSENT, ABSENT             |
-      |BAARD | BARST |CORRECT, CORRECT, PRESENT, ABSENT, ABSENT           |
-      |BAARD | DRAAD |ABSENT, PRESENT, CORRECT, PRESENT, CORRECT          |
-      |BAARD | BAARD |CORRECT, CORRECT, CORRECT, CORRECT, CORRECT         |
+      | word  | guess  | feedback                                             |
+      | BAARD | BERGEN | INVALID, INVALID, INVALID, INVALID, INVALID, INVALID |
+      | BAARD | BONJE  | CORRECT, ABSENT, ABSENT, ABSENT, ABSENT              |
+      | BAARD | BARST  | CORRECT, CORRECT, PRESENT, ABSENT, ABSENT            |
+      | BAARD | DRAAD  | ABSENT, PRESENT, CORRECT, PRESENT, CORRECT           |
+      | BAARD | BAARD  | CORRECT, CORRECT, CORRECT, CORRECT, CORRECT          |
 
 
   # Failure path

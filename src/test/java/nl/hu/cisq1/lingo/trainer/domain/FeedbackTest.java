@@ -2,8 +2,12 @@ package nl.hu.cisq1.lingo.trainer.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,4 +51,45 @@ class FeedbackTest {
         //then
         assertFalse(feedback.isWordInvalid());
     }
+
+    static Stream<Arguments> provideHintExamples() {
+        return Stream.of(
+                Arguments.of(
+                        null,
+                        "BAARD",
+                        new Feedback("BERGEN", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)),
+                        "B...."),
+                Arguments.of(
+                        "B....",
+                        "BAARD",
+                        new Feedback("BONJE", List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT)),
+                        "B...."),
+                Arguments.of(
+                        "B....",
+                        "BAARD",
+                        new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)),
+                        "BAr.."),
+                Arguments.of(
+                        "BAr..",
+                        "BAARD",
+                        new Feedback("DRAAD", List.of(Mark.ABSENT, Mark.PRESENT, Mark.CORRECT, Mark.PRESENT, Mark.CORRECT)),
+                        "BAAaD"),
+                Arguments.of(
+                        "BAAaD",
+                        "BAARD",
+                        new Feedback("BAARD", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT)),
+                        "BAARD")
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideHintExamples")
+    @DisplayName("test Give Hint")
+    void testGiveHint(String previousHint, String wordToGuess, Feedback feedback, String toGiveHint){
+        //given
+        //when
+        //then
+        assertEquals(toGiveHint,feedback.giveHint(previousHint,wordToGuess));
+    }
+
 }

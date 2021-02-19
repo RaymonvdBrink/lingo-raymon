@@ -38,6 +38,33 @@ public class Feedback {
         return true;*/
     }
 
+    public String giveHint(String previousHint, String wordToGuess){
+        if(previousHint != null) {
+            char[] toReturn = previousHint.toCharArray();
+            for (int count = 0; wordToGuess.length() > count; count++) {
+                if (previousHint.charAt(count) == '.' || Character.isLowerCase(previousHint.charAt(count))) {
+                    switch (marks.get(count)) {
+                        case CORRECT:
+                            toReturn[count] = wordToGuess.charAt(count);
+                            break;
+                        case PRESENT:
+                            toReturn[count] = Character.toLowerCase(attempt.charAt(count));
+                            break;
+                        default:
+                            //toReturn += ".";
+                            break;
+                    }
+                }
+            }
+            System.out.println();
+            return new String(toReturn);
+        }else {
+            StringBuilder toReturn = new StringBuilder(String.valueOf(wordToGuess.charAt(0)));
+            toReturn.append(".".repeat(wordToGuess.length() - 1));
+            return toReturn.toString();
+        }
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

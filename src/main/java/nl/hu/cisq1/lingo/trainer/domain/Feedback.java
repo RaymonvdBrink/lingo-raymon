@@ -41,11 +41,13 @@ public class Feedback {
     public String giveHint(String previousHint, String wordToGuess){
         if(previousHint != null) {
             char[] toReturn = previousHint.toCharArray();
-            for (int count = 0; wordToGuess.length() > count; count++) {
+            //for (int count = 0; wordToGuess.length() > count; count++) {
+            for (int count = 0; marks.size() > count; count++) {
                 if (previousHint.charAt(count) == '.' || Character.isLowerCase(previousHint.charAt(count))) {
                     switch (marks.get(count)) {
                         case CORRECT:
-                            toReturn[count] = wordToGuess.charAt(count);
+                            //toReturn[count] = wordToGuess.charAt(count);
+                            toReturn[count] = attempt.charAt(count);
                             break;
                         case PRESENT:
                             toReturn[count] = Character.toLowerCase(attempt.charAt(count));
@@ -59,8 +61,10 @@ public class Feedback {
             System.out.println();
             return new String(toReturn);
         }else {
-            StringBuilder toReturn = new StringBuilder(String.valueOf(wordToGuess.charAt(0)));
-            toReturn.append(".".repeat(wordToGuess.length() - 1));
+            /*StringBuilder toReturn = new StringBuilder(String.valueOf(wordToGuess.charAt(0)));
+            toReturn.append(".".repeat(wordToGuess.length() - 1));*/
+            StringBuilder toReturn = new StringBuilder(String.valueOf(attempt.charAt(0)));
+            toReturn.append(".".repeat(attempt.length() - 1));
             return toReturn.toString();
         }
     }

@@ -55,7 +55,7 @@ class FeedbackTest {
     static Stream<Arguments> provideHintExamples() {
         return Stream.of(
                 Arguments.of(
-                        null,
+                        "B....",
                         "BAARD",
                         new Feedback("BERGEN", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)),
                         "B...."),

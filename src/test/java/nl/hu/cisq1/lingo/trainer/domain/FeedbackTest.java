@@ -56,27 +56,22 @@ class FeedbackTest {
         return Stream.of(
                 Arguments.of(
                         "B....",
-                        "BAARD",
                         new Feedback("BERGEN", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)),
                         "B...."),
                 Arguments.of(
                         "B....",
-                        "BAARD",
                         new Feedback("BONJE", List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT)),
                         "B...."),
                 Arguments.of(
                         "B....",
-                        "BAARD",
                         new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)),
                         "BAr.."),
                 Arguments.of(
                         "BAr..",
-                        "BAARD",
                         new Feedback("DRAAD", List.of(Mark.ABSENT, Mark.PRESENT, Mark.CORRECT, Mark.PRESENT, Mark.CORRECT)),
                         "BAAaD"),
                 Arguments.of(
                         "BAAaD",
-                        "BAARD",
                         new Feedback("BAARD", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT)),
                         "BAARD")
         );
@@ -85,11 +80,10 @@ class FeedbackTest {
     @ParameterizedTest
     @MethodSource("provideHintExamples")
     @DisplayName("test Give Hint")
-    void testGiveHint(String previousHint, String wordToGuess, Feedback feedback, String toGiveHint){
+    void testGiveHint(String previousHint, Feedback feedback, String toGiveHint){
         //given
         //when
         //then
-        assertEquals(toGiveHint,feedback.giveHint(previousHint,wordToGuess));
+        assertEquals(toGiveHint,feedback.giveHint(previousHint));
     }
-
 }

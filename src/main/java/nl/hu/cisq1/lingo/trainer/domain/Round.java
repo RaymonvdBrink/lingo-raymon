@@ -1,6 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
 import nl.hu.cisq1.lingo.words.domain.Word;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class Round {
     @Column
     private int attemps;
     @OneToMany
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn
     private List<Feedback> feedback;
     @Column
     private String word;
@@ -95,6 +98,10 @@ public class Round {
 
     public List<Feedback> getFeedbackHistory(){
         return feedback;
+    }
+
+    public int getAttemps(){
+        return attemps;
     }
 
     @Override

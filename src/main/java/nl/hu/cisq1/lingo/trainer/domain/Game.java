@@ -1,5 +1,7 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ public class Game {
     @Column
     private int score;
     @OneToOne
+    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @JoinColumn
     private Round round;
     @Column
     private int rounds;
@@ -60,7 +64,17 @@ public class Game {
     }
 
     public void guess(String word){
-        round.guess(word);
+        if(gameStatus.equals(GameStatus.PLAYING)){
+            round.guess(word);
+            List<Feedback> feedbacks = round.getFeedbackHistory();
+            if(feedbacks.get(feedbacks.size()-1).isWordGuessed()){
+                gameStatus = GameStatus.WAITING_FOR_ROUND;
+                score += 5 * (5 - round.getAttemps()) + 5;
+            }
+            if(round.getAttemps() > 5){
+                gameStatus = GameStatus.ELIMINATED;
+            }
+        }
     }
 
     public Progress showProgress(){

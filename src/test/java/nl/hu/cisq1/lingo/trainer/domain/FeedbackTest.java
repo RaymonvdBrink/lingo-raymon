@@ -65,13 +65,13 @@ class FeedbackTest {
                 Arguments.of(
                         "B....",
                         new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)),
-                        "BAr.."),
+                        "BA..."),
                 Arguments.of(
-                        "BAr..",
+                        "BA...",
                         new Feedback("DRAAD", List.of(Mark.ABSENT, Mark.PRESENT, Mark.CORRECT, Mark.PRESENT, Mark.CORRECT)),
-                        "BAAaD"),
+                        "BAA.D"),
                 Arguments.of(
-                        "BAAaD",
+                        "BAA.D",
                         new Feedback("BAARD", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT)),
                         "BAARD")
         );

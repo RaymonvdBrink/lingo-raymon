@@ -12,7 +12,7 @@ import java.util.Objects;
 @Table(name = "Round")
 public class Round {
     @Id
-    private int id;
+    private long id;
     @Column
     private int attemps;
     @OneToMany

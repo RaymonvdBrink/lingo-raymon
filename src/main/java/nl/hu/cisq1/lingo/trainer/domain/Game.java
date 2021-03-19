@@ -11,7 +11,7 @@ import java.util.Objects;
 @Table(name = "Game")
 public class Game {
     @Id
-    private int id;
+    private long id;
     @Column
     private int score;
     @OneToOne

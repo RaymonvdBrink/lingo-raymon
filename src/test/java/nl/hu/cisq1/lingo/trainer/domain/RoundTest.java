@@ -82,6 +82,6 @@ class RoundTest {
                 "BAARD"
         );
 
-        assertEquals("BAr..", round.giveHint());
+        assertEquals("BA...", round.giveHint());
     }
 }

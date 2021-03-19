@@ -8,7 +8,7 @@ import java.util.Objects;
 @Table(name = "Feedback")
 public class Feedback {
     @Id
-    private int id;
+    private long id;
     @Column
     private String attempt;
     @ElementCollection
@@ -66,9 +66,9 @@ public class Feedback {
                         case CORRECT:
                             toReturn[count] = attempt.charAt(count);
                             break;
-                        case PRESENT:
+                        /*case PRESENT:
                             toReturn[count] = Character.toLowerCase(attempt.charAt(count));
-                            break;
+                            break;*/
                         default:
                             //toReturn += ".";
                             break;

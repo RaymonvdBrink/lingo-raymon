@@ -11,6 +11,7 @@ import java.util.Objects;
 @Table(name = "Game")
 public class Game {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column
     private int score;
@@ -35,11 +36,22 @@ public class Game {
         this.progress = progress;
     }
 
+    public Game(int score, Round round, int rounds, GameStatus gameStatus, Progress progress) {
+        this.score = score;
+        this.round = round;
+        this.rounds = rounds;
+        this.gameStatus = gameStatus;
+        this.progress = progress;
+    }
+
     public Game(){
 
     }
 
     public void startNewRound(String wordToGuess){
+        if(!gameStatus.equals(GameStatus.WAITING_FOR_ROUND)){
+            return;
+        }
         String attempt = String.valueOf(wordToGuess.charAt(0));
         List<Mark> marks = new ArrayList();
         marks.add(Mark.INVALID);
@@ -78,8 +90,12 @@ public class Game {
     }
 
     public Progress showProgress(){
-        progress = new Progress(score, round.getFeedbackHistory(), rounds);
+        progress = new Progress(id, score, round.getFeedbackHistory(), rounds);
         return progress;
+    }
+
+    public Integer nextWordLength(){
+        return round.NextWordLenght();
     }
 
     @Override
@@ -97,5 +113,29 @@ public class Game {
     @Override
     public int hashCode() {
         return Objects.hash(id, score, round, gameStatus, progress);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public Round getRound() {
+        return round;
+    }
+
+    public int getRounds() {
+        return rounds;
+    }
+
+    public GameStatus getGameStatus() {
+        return gameStatus;
+    }
+
+    public Progress getProgress() {
+        return progress;
     }
 }

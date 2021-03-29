@@ -100,6 +100,15 @@ public class Round {
         return feedback;
     }
 
+    @Transient
+    public int NextWordLenght(){
+        int toReturn = word.length() + 1;
+        if(toReturn > 7){
+            toReturn = 5;
+        }
+        return toReturn;
+    }
+
     public int getAttemps(){
         return attemps;
     }
@@ -117,5 +126,17 @@ public class Round {
     @Override
     public int hashCode() {
         return Objects.hash(attemps, feedback, word);
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public List<Feedback> getFeedback() {
+        return feedback;
+    }
+
+    public String getWord() {
+        return word;
     }
 }

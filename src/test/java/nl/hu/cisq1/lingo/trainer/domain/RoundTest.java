@@ -84,4 +84,19 @@ class RoundTest {
 
         assertEquals("BA...", round.giveHint());
     }
+
+    static Stream<Arguments> testDataNextWordLenght() {
+        return Stream.of(
+                Arguments.of(new Round(0,null, "12345"), 6),
+                Arguments.of(new Round(0,null, "123456"), 7),
+                Arguments.of(new Round(0,null, "1234567"), 5)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("testDataNextWordLenght")
+    @DisplayName("test of getNextWordLenght de juiste leghte terug geeft")
+    void testgetNextWordLenght(Round round, int lengteNext){
+        assertEquals(lengteNext, round.NextWordLenght());
+    }
 }

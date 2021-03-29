@@ -23,14 +23,6 @@ public class Feedback {
 
     }
 
-    public String getAttempt() {
-        return attempt;
-    }
-
-    public List<Mark> getMarks() {
-        return marks;
-    }
-
     public boolean isWordGuessed() {
         return this.marks.stream()
                 .allMatch(Mark.CORRECT::equals);
@@ -102,5 +94,17 @@ public class Feedback {
                 "attempt='" + attempt + '\'' +
                 ", marks=" + marks +
                 '}';
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getAttempt() {
+        return attempt;
+    }
+
+    public List<Mark> getMarks() {
+        return marks;
     }
 }

@@ -57,6 +57,13 @@ public class Round {
                 marks.add(Mark.ABSENT);
             }
         }*/
+        if(word.length() != attempt.length()){
+            for (int count = 0; word.length() > count; count++) {
+                marks.add(Mark.INVALID);
+            }
+            feedback.add(new Feedback(attempt, marks));
+            return;
+        }
 
         for (int count = 0; word.length() > count; count++) {
             marks.add(Mark.ABSENT);

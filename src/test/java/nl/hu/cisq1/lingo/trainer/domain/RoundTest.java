@@ -71,6 +71,26 @@ class RoundTest {
     }
 
     @Test
+    @DisplayName("test van de functie voor het raden van het woord met een guess waarvan de lengte niet overeen komt")
+    void TestGuessWrongLengt(){
+        //given
+        Round round = new Round(0, new ArrayList<>(), "BAARD");
+        //when
+        round.guess("BAARD1");
+        round.guess("BAAR");
+        //then
+        Round result = new Round(
+            2,
+            new ArrayList<Feedback>() {{
+                add(new Feedback("BAARD1", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+                add(new Feedback("BAAR", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+            }},
+            "BAARD"
+        );
+        assertEquals(result, round);
+    }
+
+    @Test
     void testGiveHint(){
         Round round = new Round(
                 3,

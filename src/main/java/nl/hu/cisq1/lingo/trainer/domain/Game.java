@@ -79,7 +79,7 @@ public class Game {
                 gameStatus = GameStatus.WAITING_FOR_ROUND;
                 score += 5 * (5 - round.getAttemps()) + 5;
             }
-            if(round.getAttemps() > 5){
+            if(round.getAttemps() >= 5){
                 gameStatus = GameStatus.ELIMINATED;
             }
         }

@@ -12,6 +12,7 @@ import java.util.Objects;
 @Table(name = "Round")
 public class Round {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column
     private int attemps;
@@ -96,12 +97,11 @@ public class Round {
         return toReturn;
     }
 
-    public List<Feedback> getFeedbackHistory(){
+    public List<Feedback> feedbackHistory(){
         return feedback;
     }
 
-    @Transient
-    public int NextWordLenght(){
+    public Integer nextWordLenght(){
         int toReturn = word.length() + 1;
         if(toReturn > 7){
             toReturn = 5;

@@ -1,5 +1,8 @@
 package nl.hu.cisq1.lingo.trainer.domain;
 
+import org.hibernate.annotations.Cascade;
+
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +19,10 @@ public class Progress {
         this.roundNumber = roundNumber;
     }
 
+    public Progress(){
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -29,5 +36,21 @@ public class Progress {
     @Override
     public int hashCode() {
         return Objects.hash(score, hints, roundNumber);
+    }
+
+    public long getGameId() {
+        return gameId;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public List<Feedback> getHints() {
+        return hints;
+    }
+
+    public int getRoundNumber() {
+        return roundNumber;
     }
 }

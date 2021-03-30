@@ -4,6 +4,7 @@ import nl.hu.cisq1.lingo.trainer.data.SpringGameRepository;
 import nl.hu.cisq1.lingo.trainer.domain.Game;
 import nl.hu.cisq1.lingo.trainer.domain.GameStatus;
 import nl.hu.cisq1.lingo.trainer.domain.Progress;
+import nl.hu.cisq1.lingo.words.application.WordService;
 import nl.hu.cisq1.lingo.words.data.SpringWordRepository;
 import nl.hu.cisq1.lingo.words.domain.Word;
 import org.springframework.stereotype.Service;
@@ -16,15 +17,15 @@ import java.util.Optional;
 @Service
 public class TrainerService {
     private final SpringGameRepository gameRepository;
-    private final SpringWordRepository wordRepository;
+    private WordService wordService;
 
-    public TrainerService(SpringGameRepository gameRepository, SpringWordRepository wordRepository){
+    public TrainerService(SpringGameRepository gameRepository, WordService wordService) {
         this.gameRepository = gameRepository;
-        this.wordRepository = wordRepository;
+        this.wordService = wordService;
     }
 
     public Game saveTest(){
-        Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND, null);
+        Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND);
         return gameRepository.save(game);
     }
 
@@ -39,22 +40,26 @@ public class TrainerService {
     }
 
     public Progress newGame(){
-        Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND, null);
+        Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND);
 
-        Optional<Word> wordToGuess = wordRepository.findRandomWordByLength(5);
-        String word = wordToGuess.orElse(null).getValue();
+        /*Optional<Word> wordToGuess = wordService.findRandomWordByLength(5);
+        String word = wordToGuess.orElse(null).getValue();*/
+
+        String word = wordService.provideRandomWord(5).toUpperCase();
 
         game.startNewRound(word);
         this.gameRepository.save(game);
 
-        return game.showProgress();
+        Progress progress = game.showProgress();
+        return progress;
     }
 
     public Progress newRound(long id){
         Game game = getGameById(id);
 
         int nextLenght = game.nextWordLength();
-        String nextWord = this.wordRepository.findRandomWordByLength(nextLenght).orElse(null).getValue();
+        //String nextWord = this.wordService.findRandomWordByLength(nextLenght).orElse(null).getValue();
+        String nextWord = wordService.provideRandomWord(nextLenght).toUpperCase();
 
         game.startNewRound(nextWord);
         this.gameRepository.save(game);

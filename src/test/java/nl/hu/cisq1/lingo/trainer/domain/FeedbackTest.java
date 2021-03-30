@@ -19,7 +19,7 @@ class FeedbackTest {
         //when
         Feedback feedback = new Feedback("woord", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT));
         //then
-        assertTrue(feedback.isWordGuessed());
+        assertTrue(feedback.wordIsGuessed());
     }
 
     @Test
@@ -29,7 +29,7 @@ class FeedbackTest {
         //when
         Feedback feedback = new Feedback("woord", List.of(Mark.CORRECT, Mark.ABSENT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT));
         //then
-        assertFalse(feedback.isWordGuessed());
+        assertFalse(feedback.wordIsGuessed());
     }
 
     @Test
@@ -39,7 +39,7 @@ class FeedbackTest {
         //when
         Feedback feedback = new Feedback("woord", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID));
         //then
-        assertTrue(feedback.isWordInvalid());
+        assertTrue(feedback.wordIsInvalid());
     }
 
     @Test
@@ -49,7 +49,7 @@ class FeedbackTest {
         //when
         Feedback feedback = new Feedback("woord", List.of(Mark.INVALID, Mark.ABSENT, Mark.INVALID, Mark.INVALID, Mark.INVALID));
         //then
-        assertFalse(feedback.isWordInvalid());
+        assertFalse(feedback.wordIsInvalid());
     }
 
     static Stream<Arguments> provideHintExamples() {

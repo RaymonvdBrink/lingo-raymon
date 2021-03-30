@@ -8,6 +8,7 @@ import java.util.Objects;
 @Table(name = "Feedback")
 public class Feedback {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     @Column
     private String attempt;
@@ -23,7 +24,8 @@ public class Feedback {
 
     }
 
-    public boolean isWordGuessed() {
+    @Transient
+    public boolean wordIsGuessed() {
         return this.marks.stream()
                 .allMatch(Mark.CORRECT::equals);
         /*return this.marks.stream()
@@ -36,7 +38,8 @@ public class Feedback {
         return true;*/
     }
 
-    public boolean isWordInvalid() {
+    @Transient
+    public boolean wordIsInvalid() {
         return this.marks.stream()
                 .allMatch(Mark.INVALID::equals);
         /*return this.marks.stream()

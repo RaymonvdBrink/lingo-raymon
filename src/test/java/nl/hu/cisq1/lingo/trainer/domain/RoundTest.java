@@ -97,6 +97,6 @@ class RoundTest {
     @MethodSource("testDataNextWordLenght")
     @DisplayName("test of getNextWordLenght de juiste leghte terug geeft")
     void testgetNextWordLenght(Round round, int lengteNext){
-        assertEquals(lengteNext, round.NextWordLenght());
+        assertEquals(lengteNext, round.nextWordLenght());
     }
 }

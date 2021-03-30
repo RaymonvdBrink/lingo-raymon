@@ -24,24 +24,20 @@ public class Game {
     @Column
     @Enumerated(EnumType.STRING)
     private GameStatus gameStatus;
-    @Transient
-    private Progress progress;
 
-    public Game(int id, int score, Round round, int rounds, GameStatus gameStatus, Progress progress) {
+    public Game(int id, int score, Round round, int rounds, GameStatus gameStatus) {
         this.id = id;
         this.score = score;
         this.round = round;
         this.rounds = rounds;
         this.gameStatus = gameStatus;
-        this.progress = progress;
     }
 
-    public Game(int score, Round round, int rounds, GameStatus gameStatus, Progress progress) {
+    public Game(int score, Round round, int rounds, GameStatus gameStatus) {
         this.score = score;
         this.round = round;
         this.rounds = rounds;
         this.gameStatus = gameStatus;
-        this.progress = progress;
     }
 
     public Game(){
@@ -78,8 +74,8 @@ public class Game {
     public void guess(String word){
         if(gameStatus.equals(GameStatus.PLAYING)){
             round.guess(word);
-            List<Feedback> feedbacks = round.getFeedbackHistory();
-            if(feedbacks.get(feedbacks.size()-1).isWordGuessed()){
+            List<Feedback> feedbacks = round.feedbackHistory();
+            if(feedbacks.get(feedbacks.size()-1).wordIsGuessed()){
                 gameStatus = GameStatus.WAITING_FOR_ROUND;
                 score += 5 * (5 - round.getAttemps()) + 5;
             }
@@ -90,12 +86,12 @@ public class Game {
     }
 
     public Progress showProgress(){
-        progress = new Progress(id, score, round.getFeedbackHistory(), rounds);
+        Progress progress = new Progress(id, score, round.feedbackHistory(), rounds);
         return progress;
     }
 
     public Integer nextWordLength(){
-        return round.NextWordLenght();
+        return round.nextWordLenght();
     }
 
     @Override
@@ -106,13 +102,12 @@ public class Game {
         return id == game.id &&
                 score == game.score &&
                 Objects.equals(round, game.round) &&
-                gameStatus == game.gameStatus &&
-                Objects.equals(progress, game.progress);
+                gameStatus == game.gameStatus;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, score, round, gameStatus, progress);
+        return Objects.hash(id, score, round, gameStatus);
     }
 
     public long getId() {
@@ -133,9 +128,5 @@ public class Game {
 
     public GameStatus getGameStatus() {
         return gameStatus;
-    }
-
-    public Progress getProgress() {
-        return progress;
     }
 }

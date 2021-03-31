@@ -39,7 +39,7 @@ public class Feedback {
     }
 
     @Transient
-    public boolean isWordInvalid() {
+    public boolean wordIsInvalid() {
         return this.marks.stream()
                 .allMatch(Mark.INVALID::equals);
         /*return this.marks.stream()

@@ -20,7 +20,7 @@ het checken of er coden wordt ingevoerd in plaats van een guess.
 ## A8:2017 Insecure Deserialization
 
 ### Description
-Het direct terug geven van dat zonder het aan te passen.
+Het direct terug geven van data zonder het aan te passen.
 
 ### Risk
 Dat de applicatie direct java objecten terug geeft. 

@@ -36,27 +36,7 @@ public class Round {
     public void guess(String attempt){
         attemps += 1;
         List<Mark> marks = new ArrayList<>();
-        /*for (int count = 0; word.length() > count; count++) {
-            if(word.charAt(count) == attempt.charAt(count)){
-                Mark mark = Mark.CORRECT;
-                for (Feedback feedback:feedback) {
-                    if(feedback.getMarks().get(count).equals(Mark.CORRECT)){
-                        mark = Mark.ABSENT;
-                    }
-                }
-                marks.add(mark);
-            }else if(word.indexOf(attempt.charAt(count)) > 0){
-                Mark mark = Mark.PRESENT;
-                for (Feedback feedback:feedback) {
-                    if(feedback.getMarks().get(count).equals(Mark.PRESENT)){
-                        mark = Mark.ABSENT;
-                    }
-                }
-                marks.add(mark);
-            }else {
-                marks.add(Mark.ABSENT);
-            }
-        }*/
+
         if(word.length() != attempt.length()){
             for (int count = 0; word.length() > count; count++) {
                 marks.add(Mark.INVALID);
@@ -90,16 +70,13 @@ public class Round {
         feedback.add(new Feedback(attempt, marks));
     }
 
-    public String giveHint(){
-        /*if(feedback.size() > 0){
-            String previousHint = feedback.get(feedback.size() - 2).getAttempt();
-            return feedback.get(feedback.size() - 1).giveHint(previousHint);
-        }else {
-            return feedback.get(feedback.size() - 1).giveHint(null);
-        }*/
-        String toReturn = null;
+    public List<String> giveHint(){
+        List<String> toReturn = new ArrayList<>();
+
+        toReturn.add(String.valueOf(word.charAt(0)) + ".".repeat(word.length()-1));
+
         for (Feedback feedback :feedback) {
-            toReturn = feedback.giveHint(toReturn);
+            toReturn.add(feedback.giveHint(toReturn.get(toReturn.size()-1)));
         }
         return toReturn;
     }

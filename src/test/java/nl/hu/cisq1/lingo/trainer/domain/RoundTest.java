@@ -96,13 +96,19 @@ class RoundTest {
                 3,
                 new ArrayList<Feedback>() {{
                     add(new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)));
-                    add(new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)));
-                    add(new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)));
+                    add(new Feedback("BAAST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT, Mark.ABSENT)));
+                    add(new Feedback("BAARP", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.ABSENT)));
                 }},
                 "BAARD"
         );
 
-        assertEquals("BA...", round.giveHint());
+        List<String> expected = new ArrayList<>();
+        expected.add("B....");
+        expected.add("BA...");
+        expected.add("BAA..");
+        expected.add("BAAR.");
+
+        assertEquals(expected, round.giveHint());
     }
 
     static Stream<Arguments> testDataNextWordLenght() {

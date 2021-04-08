@@ -48,23 +48,8 @@ public class Game {
         if(!gameStatus.equals(GameStatus.WAITING_FOR_ROUND)){
             return;
         }
-        String attempt = String.valueOf(wordToGuess.charAt(0));
-        List<Mark> marks = new ArrayList();
-        marks.add(Mark.INVALID);
-        for (int i = 1; i < wordToGuess.length(); i++){
-            attempt += ".";
-            marks.add(Mark.INVALID);
-        }
 
-        Feedback feedback = new Feedback(attempt, marks);
-        List<Feedback> feedbacks = new ArrayList<>();
-        feedbacks.add(feedback);
-
-        round = new Round(0, feedbacks, wordToGuess);
-
-        /*List<Feedback> feedbackExpect = new ArrayList<>();
-        feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
-        round = new Round(0, feedbackExpect,"BAARD");*/
+        round = new Round(0, new ArrayList<>(), wordToGuess);
 
         gameStatus = GameStatus.PLAYING;
 
@@ -78,6 +63,7 @@ public class Game {
             if(feedbacks.get(feedbacks.size()-1).wordIsGuessed()){
                 gameStatus = GameStatus.WAITING_FOR_ROUND;
                 score += 5 * (5 - round.getAttemps()) + 5;
+                return;
             }
             if(round.getAttemps() >= 5){
                 gameStatus = GameStatus.ELIMINATED;
@@ -86,7 +72,8 @@ public class Game {
     }
 
     public Progress showProgress(){
-        Progress progress = new Progress(id, score, round.feedbackHistory(), rounds);
+        Progress progress = new Progress(id, score, round.giveHint(), round.getFeedback(), rounds);
+
         return progress;
     }
 

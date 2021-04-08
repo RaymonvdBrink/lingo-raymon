@@ -32,8 +32,8 @@ class TrainerServiceTest {
         Progress result = service.newGame();
 
         Progress expect = new Progress(1,0, new ArrayList<>() {{
-            add(new Feedback("A....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
-        }},1);
+            add("A....");
+        }}, new ArrayList<>(),1);
 
         assertEquals(expect, result);
     }
@@ -48,8 +48,8 @@ class TrainerServiceTest {
         Progress result = service.newRound(1);
 
         Progress expect = new Progress(1,0, new ArrayList<>() {{
-            add(new Feedback("T.....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
-        }},1);
+            add("T.....");
+        }}, new ArrayList<>(),1);
 
         assertEquals(expect, result);
     }
@@ -57,10 +57,7 @@ class TrainerServiceTest {
     @Test
     @DisplayName("doe een nieuwe guess op het woord")
     void testGuess(){
-        List<Feedback> feedbacks = new ArrayList<>(){{
-            add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
-        }};
-        Round round = new Round(0, feedbacks, "BAARD");
+        Round round = new Round(0, new ArrayList<>(), "BAARD");
         Game game = new Game(1, 0, round, 1, GameStatus.PLAYING);
 
         when(gameRepository.findById(anyLong())).thenReturn(
@@ -70,7 +67,9 @@ class TrainerServiceTest {
         Progress result = service.guessWord("BARST", 1);
 
         Progress expect = new Progress(1,0, new ArrayList<>() {{
-            add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+            add("B....");
+            add("BA...");
+        }},new ArrayList<>() {{
             add(new Feedback("BARST", List.of(Mark.CORRECT, Mark.CORRECT, Mark.PRESENT, Mark.ABSENT, Mark.ABSENT)));
         }},1);
 

@@ -24,16 +24,6 @@ public class TrainerService {
         this.wordService = wordService;
     }
 
-    public Game saveTest(){
-        Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND);
-        return gameRepository.save(game);
-    }
-
-    public Game getTest(Long id){
-        Optional<Game> game = gameRepository.findById(id);
-        return game.orElse(null);
-    }
-
     public List<Game> getAll(){
         List<Game> game = gameRepository.findAll();
         return game;
@@ -41,9 +31,6 @@ public class TrainerService {
 
     public Progress newGame(){
         Game game = new Game(0, null, 0, GameStatus.WAITING_FOR_ROUND);
-
-        /*Optional<Word> wordToGuess = wordService.findRandomWordByLength(5);
-        String word = wordToGuess.orElse(null).getValue();*/
 
         String word = wordService.provideRandomWord(5).toUpperCase();
 
@@ -58,7 +45,6 @@ public class TrainerService {
         Game game = getGameById(id);
 
         int nextLenght = game.nextWordLength();
-        //String nextWord = this.wordService.findRandomWordByLength(nextLenght).orElse(null).getValue();
         String nextWord = wordService.provideRandomWord(nextLenght).toUpperCase();
 
         game.startNewRound(nextWord);

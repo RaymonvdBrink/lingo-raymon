@@ -18,7 +18,7 @@ class GameTest {
         game.startNewRound("BAARD");
 
         List<Feedback> feedbackExpect = new ArrayList<>();
-        feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+        //feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
         Round roundExpect = new Round(0, feedbackExpect,"BAARD");
         Game gameExpect = new Game(0, 0, roundExpect, 0, GameStatus.PLAYING);
 
@@ -53,19 +53,25 @@ class GameTest {
     @DisplayName("het progress van het spel laten zien")
     void testShowProgress(){
         List<Feedback> feedbackExpect = new ArrayList<>();
-        feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+        //feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+
         Round roundExpect = new Round(0, feedbackExpect,"BAARD");
 
         Game game = new Game(0, 0, roundExpect, 0, GameStatus.PLAYING);
 
-        assertEquals(new Progress(0,0, feedbackExpect, 0), game.showProgress());
+        List<String> hintsExpect = new ArrayList<>();
+        hintsExpect.add("B....");
+
+        Progress result =  game.showProgress();
+
+        assertEquals(new Progress(0,0, hintsExpect, feedbackExpect, 0), result);
     }
 
     @Test
     @DisplayName("test de doorgeef guess functie")
     void testGuess(){
         List<Feedback> feedback = new ArrayList<>();
-        feedback.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+        //feedback.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
         Round round = new Round(0, feedback,"BAARD");
 
         Game game = new Game(0, 0, round, 0, GameStatus.PLAYING);
@@ -73,7 +79,7 @@ class GameTest {
         game.guess("BONJE");
 
         List<Feedback> feedbackExpect = new ArrayList<>();
-        feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
+        //feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
         feedbackExpect.add(new Feedback("BONJE", List.of(Mark.CORRECT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT, Mark.ABSENT)));
         Round roundExpect = new Round(1, feedbackExpect,"BAARD");
         Game gameExpect = new Game(0, 0, roundExpect, 0, GameStatus.PLAYING);
@@ -84,16 +90,13 @@ class GameTest {
     @Test
     @DisplayName("test score met corecte guess")
     void testGuessScore(){
-        List<Feedback> feedback = new ArrayList<>();
-        feedback.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
-        Round round = new Round(0, feedback,"BAARD");
+        Round round = new Round(0, new ArrayList<>(),"BAARD");
 
         Game game = new Game(0, 0, round, 0, GameStatus.PLAYING);
 
         game.guess("BAARD");
 
         List<Feedback> feedbackExpect = new ArrayList<>();
-        feedbackExpect.add(new Feedback("B....", List.of(Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID, Mark.INVALID)));
         feedbackExpect.add(new Feedback("BAARD", List.of(Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT, Mark.CORRECT)));
         Round roundExpect = new Round(1, feedbackExpect,"BAARD");
         Game gameExpect = new Game(0, 25, roundExpect, 0, GameStatus.WAITING_FOR_ROUND);
@@ -107,7 +110,7 @@ class GameTest {
         Round round = new Round(0,null, "12345");
         Game game = new Game(25, round, 0, GameStatus.WAITING_FOR_ROUND);
 
-        //assertEquals(6, game.getNextWordLenght());
+        assertEquals(6, game.nextWordLength());
     }
 
     public Game getGame = new Game(0,0, new Round(), 0, GameStatus.WAITING_FOR_ROUND);

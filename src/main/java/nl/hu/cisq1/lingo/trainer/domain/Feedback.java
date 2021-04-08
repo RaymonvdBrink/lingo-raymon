@@ -28,28 +28,12 @@ public class Feedback {
     public boolean wordIsGuessed() {
         return this.marks.stream()
                 .allMatch(Mark.CORRECT::equals);
-        /*return this.marks.stream()
-                .allMatch(mark -> mark.equals(Mark.CORRECT));*/
-        /*for(Mark mark : this.marks){
-            if(!mark.equals(Mark.CORRECT)){
-                return false;
-            }
-        }
-        return true;*/
     }
 
     @Transient
     public boolean wordIsInvalid() {
         return this.marks.stream()
                 .allMatch(Mark.INVALID::equals);
-        /*return this.marks.stream()
-                .allMatch(mark -> mark.equals(Mark.INVALID));*/
-        /*for(Mark mark : this.marks){
-            if(!mark.equals(Mark.INVALID)){
-                return false;
-            }
-        }
-        return true;*/
     }
 
     public String giveHint(String previousHint){
@@ -61,11 +45,7 @@ public class Feedback {
                         case CORRECT:
                             toReturn[count] = attempt.charAt(count);
                             break;
-                        /*case PRESENT:
-                            toReturn[count] = Character.toLowerCase(attempt.charAt(count));
-                            break;*/
                         default:
-                            //toReturn += ".";
                             break;
                     }
                 }

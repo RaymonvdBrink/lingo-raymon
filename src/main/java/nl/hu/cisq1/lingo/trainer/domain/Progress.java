@@ -9,13 +9,15 @@ import java.util.Objects;
 public class Progress {
     private long gameId;
     private int score;
-    private List<Feedback> hints;
+    private List<String> hints;
+    private List<Feedback> feedback;
     private int roundNumber;
 
-    public Progress(long gameId, int score, List<Feedback> hints, int roundNumber){
+    public Progress(long gameId, int score, List<String> hints, List<Feedback> feedback, int roundNumber){
         this.gameId = gameId;
         this.score = score;
         this.hints = hints;
+        this.feedback = feedback;
         this.roundNumber = roundNumber;
     }
 
@@ -46,8 +48,12 @@ public class Progress {
         return score;
     }
 
-    public List<Feedback> getHints() {
+    public List<String> getHints() {
         return hints;
+    }
+
+    public List<Feedback> getFeedback() {
+        return feedback;
     }
 
     public int getRoundNumber() {

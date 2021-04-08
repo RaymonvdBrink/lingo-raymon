@@ -15,16 +15,6 @@ public class TrainerController {
         this.service = service;
     }
 
-    @GetMapping("/test")
-    public Game test(){
-        return service.saveTest();
-    }
-
-    @GetMapping("/test2")
-    public Game test2(){
-        return service.getTest((long) 1);
-    }
-
     @GetMapping("/game/all")
     public List<Game> getAll(){
         return service.getAll();
